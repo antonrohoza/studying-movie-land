@@ -12,11 +12,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Entity
 @Data
-@RequiredArgsConstructor
 public class Movie implements Serializable {
 
   @Id

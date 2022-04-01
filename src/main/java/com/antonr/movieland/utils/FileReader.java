@@ -1,4 +1,4 @@
-package com.antonr.movieland.util;
+package com.antonr.movieland.utils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

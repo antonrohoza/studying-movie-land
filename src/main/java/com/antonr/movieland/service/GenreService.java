@@ -2,7 +2,6 @@ package com.antonr.movieland.service;
 
 import com.antonr.movieland.entity.Genre;
 import com.antonr.movieland.repository.GenreRepository;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,9 +13,5 @@ public class GenreService {
 
   public Genre addGenre(Genre genre) {
     return genreRepository.save(genre);
-  }
-
-  public List<Genre> getAllGenres() {
-    return genreRepository.findAll();
   }
 }

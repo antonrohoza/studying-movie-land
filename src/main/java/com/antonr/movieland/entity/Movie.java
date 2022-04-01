@@ -30,11 +30,7 @@ public class Movie implements Serializable {
   private double rating;
   private double price;
 
-  @ManyToMany(fetch = FetchType.LAZY,
-              cascade = {
-                  CascadeType.PERSIST,
-                  CascadeType.MERGE
-              })
+  @ManyToMany(cascade = {CascadeType.ALL})
   @JoinTable(name = "movie_genre",
              joinColumns = {@JoinColumn(name = "movie_id")},
              inverseJoinColumns = {@JoinColumn(name = "genre_id")})

@@ -1,13 +1,12 @@
 package com.antonr.movieland.controller;
 
-import static com.antonr.movieland.util.FileReader.getAllLinesFromFileByURL;
+import static com.antonr.movieland.utils.FileReader.getAllLinesFromFileByURL;
 
 import com.antonr.movieland.entity.Genre;
 import com.antonr.movieland.service.GenreService;
-import com.antonr.movieland.util.Constants;
+import com.antonr.movieland.utils.Constants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,6 +26,6 @@ public class GenreController {
                                        .map(Genre::new)
                                        .forEach(genreService::addGenre);
 
-    return "redirect:/users";
+    return "redirect:/genres";
   }
 }

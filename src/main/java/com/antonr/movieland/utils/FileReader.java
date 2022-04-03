@@ -10,6 +10,7 @@ import lombok.experimental.UtilityClass;
 
 @UtilityClass
 public class FileReader {
+
   private static final String EMPTY_LINE = "";
 
   @SneakyThrows
@@ -21,4 +22,6 @@ public class FileReader {
                    .collect(Collectors.toList());
     }
   }
+
+
 }

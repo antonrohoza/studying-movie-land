@@ -19,19 +19,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Genre implements Serializable {
+public class Country implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   private String name;
 
-  @ManyToMany(mappedBy = "genres")
-  private Set<Movie> movies;
+  @ManyToMany(mappedBy = "countries")
+  Set<Movie> movies;
 
-  public static Genre createGenreByGenreName(String genreName) {
-    return Genre.builder()
-                .name(genreName)
-                .build();
-  }
 }

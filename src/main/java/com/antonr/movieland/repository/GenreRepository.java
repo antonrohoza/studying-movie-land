@@ -9,4 +9,6 @@ import org.springframework.stereotype.Repository;
 public interface GenreRepository extends CrudRepository<Genre, Integer> {
 
   List<Genre> findAll();
+
+  <S extends Genre> List<S> saveAll(Iterable<S> genres);
 }

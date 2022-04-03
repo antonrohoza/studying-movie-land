@@ -2,8 +2,8 @@ package com.antonr.movieland.controller;
 
 import static com.antonr.movieland.utils.FileReader.getAllLinesFromFileByURL;
 
-import com.antonr.movieland.entity.Genre;
-import com.antonr.movieland.service.GenreService;
+import com.antonr.movieland.entity.Poster;
+import com.antonr.movieland.service.PosterService;
 import com.antonr.movieland.utils.Constants;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -14,12 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @AllArgsConstructor
-public class GenreController {
+public class PosterController {
 
-  private final GenreService genreService;
+  private final PosterService posterService;
 
-  @GetMapping("/genre/add")
-  public List<Genre> addGenre() {
-    return genreService.saveAll(genreService.getAllGenresFromFile(getAllLinesFromFileByURL(Constants.GENRE_FILE)));
+  @GetMapping("/poster/add")
+  public List<Poster> addPoster() {
+    return posterService.saveAll(posterService.getAllPostersFromFile(getAllLinesFromFileByURL(Constants.POSTER_FILE)));
   }
 }

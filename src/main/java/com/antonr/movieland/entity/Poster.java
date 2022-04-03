@@ -1,12 +1,10 @@
 package com.antonr.movieland.entity;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,19 +17,12 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Genre implements Serializable {
+public class Poster implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
-  private String name;
+  private Long id;
+  private String movie_name;
+  private String url;
 
-  @ManyToMany(mappedBy = "genres")
-  private Set<Movie> movies;
-
-  public static Genre createGenreByGenreName(String genreName) {
-    return Genre.builder()
-                .name(genreName)
-                .build();
-  }
 }

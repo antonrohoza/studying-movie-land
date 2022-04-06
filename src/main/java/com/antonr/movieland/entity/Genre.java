@@ -1,7 +1,8 @@
 package com.antonr.movieland.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,21 +18,20 @@ import lombok.NoArgsConstructor;
 @Table
 @Data
 @Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public class Genre implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Integer id;
+  private Long id;
   private String name;
 
   @ManyToMany(mappedBy = "genres")
-  private Set<Movie> movies;
+  private List<Movie> movies;
 
-  public static Genre createGenreByGenreName(String genreName) {
-    return Genre.builder()
-                .name(genreName)
-                .build();
+  @JsonBackReference
+  public List<Movie> getMovies() {
+    return movies;
   }
 }

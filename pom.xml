@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>2.6.5</version>
-		<relativePath/> 
+		<relativePath/>
 	</parent>
 	<groupId>com.antonr</groupId>
 	<artifactId>movieland</artifactId>
@@ -44,6 +44,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-jpamodelgen</artifactId>
+			<version>5.3.7.Final</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -60,6 +65,22 @@
 					</excludes>
 				</configuration>
 			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>org.apache.maven.plugins</groupId>-->
+<!--				<artifactId>maven-compiler-plugin</artifactId>-->
+<!--				<version>3.8.0</version>-->
+<!--				<configuration>-->
+<!--					<release>12</release>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
+<!--			<plugin>-->
+<!--				<artifactId>maven-compiler-plugin</artifactId>-->
+<!--				<configuration>-->
+<!--					<compilerArguments>-->
+<!--						<processor>org.hibernate.jpamodelgen.JPAMetaModelEntityProcessor</processor>-->
+<!--					</compilerArguments>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
 		</plugins>
 	</build>
 

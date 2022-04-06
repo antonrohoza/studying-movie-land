@@ -1,9 +1,10 @@
 package com.antonr.movieland.service;
 
 import com.antonr.movieland.entity.Movie;
-import com.antonr.movieland.repository.MovieRepository;
+import com.antonr.movieland.entity.request.MovieRequest;
+import com.antonr.movieland.entity.request.SortDirection;
+import com.antonr.movieland.repository.jpa.JpaMovieRepository;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -11,31 +12,29 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class MovieService {
 
-  MovieRepository movieRepository;
+  JpaMovieRepository jpaMovieRepository;
 
   public List<Movie> findAll() {
-    return movieRepository.findAll();
+    return jpaMovieRepository.findAll();
   }
 
   public List<Movie> sortedMoviesByRating(String order) {
-    return "asc".equals(order) ? movieRepository.getSortedMoviesByRatingAsc()
-                               : movieRepository.getSortedMoviesByRatingDesc();
+    return SortDirection.ASC.getDirectionOrder().equals(order.toLowerCase())
+           ? jpaMovieRepository.getSortedMoviesByRatingAsc()
+           : jpaMovieRepository.getSortedMoviesByRatingDesc();
   }
 
   public List<Movie> sortedMoviesByPrice(String order) {
-    return "asc".equals(order) ? movieRepository.getSortedMoviesByPriceAsc()
-                               : movieRepository.getSortedMoviesByPriceDesc();
+    return SortDirection.ASC.getDirectionOrder().equals(order.toLowerCase())
+           ? jpaMovieRepository.getSortedMoviesByPriceAsc()
+           : jpaMovieRepository.getSortedMoviesByPriceDesc();
   }
 
-  public List<Movie> sortedMoviesByGenreIdByPrice(String order, List<Movie> currentGenreMovies) {
-    return sortedMoviesByPrice(order).stream()
-                                     .filter(currentGenreMovies::contains)
-                                     .collect(Collectors.toList());
+  public List<Movie> sortedByGenreId(Long id, MovieRequest movieRequest) {
+    return jpaMovieRepository.sortMoviesByGenre(id, movieRequest);
   }
 
-  public List<Movie> sortedMoviesByGenreIdByRating(String order, List<Movie> currentGenreMovies) {
-    return sortedMoviesByRating(order).stream()
-                                      .filter(currentGenreMovies::contains)
-                                      .collect(Collectors.toList());
+  public List<Movie> findRandomNumberOfMovies(int randomNumberOfMovies) {
+    return jpaMovieRepository.findRandomNumberOfMovies(randomNumberOfMovies);
   }
 }

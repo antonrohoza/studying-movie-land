@@ -1,8 +1,6 @@
 package com.antonr.movieland.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
-import java.util.List;
 import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,5 +27,5 @@ public class Genre implements Serializable {
   private String name;
 
   @ManyToMany(mappedBy = "genres")
-  private List<Movie> movies;
+  private Set<Movie> movies;
 }

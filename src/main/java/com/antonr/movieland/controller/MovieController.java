@@ -3,12 +3,14 @@ package com.antonr.movieland.controller;
 import com.antonr.movieland.entity.Genre;
 import com.antonr.movieland.entity.dto.ConvertorDto;
 import com.antonr.movieland.entity.dto.MovieWithPicturePath;
-import com.antonr.movieland.repository.MovieRepositoryImpl;
+import com.antonr.movieland.entity.request.MovieRequest;
+import com.antonr.movieland.entity.request.SortDirection;
+import com.antonr.movieland.entity.request.SortField;
 import com.antonr.movieland.service.GenreService;
 import com.antonr.movieland.service.MovieService;
+import com.antonr.movieland.utils.Constants;
 import java.util.List;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,9 +24,6 @@ public class MovieController {
 
   private final MovieService movieService;
   private final GenreService genreService;
-
-  @Autowired
-  private final MovieRepositoryImpl movieRepositoryImpl;
 
   @GetMapping
   public List<MovieWithPicturePath> getAllMoviesSortedByRating(
@@ -40,7 +39,8 @@ public class MovieController {
 
   @GetMapping(value = "/random")
   public List<MovieWithPicturePath> getRandomMovies() {
-    return ConvertorDto.movieDto(movieRepositoryImpl.findRandomNumberOfMovies(1));
+    return ConvertorDto
+        .movieDto(movieService.findRandomNumberOfMovies(Constants.RANDOM_NUMBER_OF_MOVIES));
   }
 
   @GetMapping(value = "genre/{genreId}")
@@ -51,9 +51,11 @@ public class MovieController {
     if (rating.isEmpty() && price.isEmpty()) {
       return ConvertorDto.movieDto(currentGenre.getMovies());
     } else if (rating.isEmpty()) {
-      return ConvertorDto.movieDto(movieService.sortedMoviesByGenreIdByPrice(price, currentGenre.getMovies()));
+      return ConvertorDto.movieDto(movieService.sortedByGenreId(genreId, new MovieRequest(
+          SortField.PRICE, SortDirection.findDirectionByOrder(price))));
     }
-    return ConvertorDto.movieDto(movieService.sortedMoviesByGenreIdByRating(rating, currentGenre.getMovies()));
+    return ConvertorDto.movieDto(movieService.sortedByGenreId(genreId, new MovieRequest(
+        SortField.RATING, SortDirection.findDirectionByOrder(price))));
   }
 
 }

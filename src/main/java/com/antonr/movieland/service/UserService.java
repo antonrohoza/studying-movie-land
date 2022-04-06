@@ -1,6 +1,6 @@
 package com.antonr.movieland.service;
 
-import com.antonr.movieland.repository.UserRepository;
+import com.antonr.movieland.repository.jpa.JpaUserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -8,6 +8,6 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class UserService {
 
-  private final UserRepository userRepository;
+  private final JpaUserRepository jpaUserRepository;
 
 }

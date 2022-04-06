@@ -29,9 +29,4 @@ public class Country implements Serializable {
 
   @ManyToMany(mappedBy = "countries")
   private List<Movie> movies;
-
-  @JsonBackReference
-  public List<Movie> getMovies() {
-    return movies;
-  }
 }

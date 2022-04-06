@@ -30,9 +30,4 @@ public class Review implements Serializable {
   @ManyToOne
   @JoinColumn(name = "movie_id")
   private Movie movie;
-
-  @JsonBackReference
-  public Movie getMovie() {
-    return movie;
-  }
 }

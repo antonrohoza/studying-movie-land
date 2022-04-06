@@ -19,15 +19,13 @@ public class MovieService {
   }
 
   public List<Movie> sortedMoviesByRating(String order) {
-    return SortDirection.ASC.getDirectionOrder().equals(order.toLowerCase())
-           ? jpaMovieRepository.getSortedMoviesByRatingAsc()
-           : jpaMovieRepository.getSortedMoviesByRatingDesc();
+    return SortDirection.ASC.getDirectionOrder().equals(order.toLowerCase()) ? jpaMovieRepository.getSortedMoviesByRatingAsc()
+                                                                             : jpaMovieRepository.getSortedMoviesByRatingDesc();
   }
 
   public List<Movie> sortedMoviesByPrice(String order) {
-    return SortDirection.ASC.getDirectionOrder().equals(order.toLowerCase())
-           ? jpaMovieRepository.getSortedMoviesByPriceAsc()
-           : jpaMovieRepository.getSortedMoviesByPriceDesc();
+    return SortDirection.ASC.getDirectionOrder().equals(order.toLowerCase()) ? jpaMovieRepository.getSortedMoviesByPriceAsc()
+                                                                             : jpaMovieRepository.getSortedMoviesByPriceDesc();
   }
 
   public List<Movie> sortedByGenreId(Long id, MovieRequest movieRequest) {

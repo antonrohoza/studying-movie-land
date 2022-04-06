@@ -26,10 +26,9 @@ public class MovieRepositoryImpl implements MovieRepository {
     CriteriaQuery<Long> criteriaQueryCount = criteriaBuilder.createQuery(Long.class);
     Root<Movie> movieCountRoot = criteriaQueryCount.from(Movie.class);
 
-    int count = entityManager
-        .createQuery(criteriaQueryCount.select(criteriaBuilder.count(movieCountRoot)))
-        .getSingleResult()
-        .intValue();
+    int count = entityManager.createQuery(criteriaQueryCount.select(criteriaBuilder.count(movieCountRoot)))
+                             .getSingleResult()
+                             .intValue();
     // +1 because upper bound is exclusive in nextInt()
     int index = new Random().nextInt(count - randomNumber + 1);
     CriteriaQuery<Movie> criteriaQueryUser = criteriaBuilder.createQuery(Movie.class);
@@ -51,17 +50,12 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     String sortFieldName = movieRequest.getSortField().getName();
 
-    return movieRequest.getSortDirection() == SortDirection.ASC
-           ? getSortedMovieList(criteriaMovie, movies,
-                                criteriaBuilder.asc(movies.get(sortFieldName)))
-           : getSortedMovieList(criteriaMovie, movies,
-                                criteriaBuilder.desc(movies.get(sortFieldName)));
+    return movieRequest.getSortDirection() == SortDirection.ASC ? getSortedMovieList(criteriaMovie, movies, criteriaBuilder.asc(movies.get(sortFieldName)))
+                                                                : getSortedMovieList(criteriaMovie, movies, criteriaBuilder.desc(movies.get(sortFieldName)));
   }
 
-  private List<Movie> getSortedMovieList(CriteriaQuery<Movie> criteriaMovie,
-                                         SetJoin<Genre, Movie> movies, Order order) {
-    return entityManager.createQuery(criteriaMovie.select(movies)
-                                                  .orderBy(order))
+  private List<Movie> getSortedMovieList(CriteriaQuery<Movie> criteriaMovie, SetJoin<Genre, Movie> movies, Order order) {
+    return entityManager.createQuery(criteriaMovie.select(movies).orderBy(order))
                         .getResultList();
   }
 

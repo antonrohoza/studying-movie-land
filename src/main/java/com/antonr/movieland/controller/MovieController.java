@@ -10,6 +10,7 @@ import com.antonr.movieland.service.GenreService;
 import com.antonr.movieland.service.MovieService;
 import com.antonr.movieland.utils.Constants;
 import java.util.List;
+import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,36 +27,34 @@ public class MovieController {
   private final GenreService genreService;
 
   @GetMapping
-  public List<MovieWithPicturePath> getAllMoviesSortedByRating(
-      @RequestParam(value = "rating", required = false, defaultValue = "") String rating,
-      @RequestParam(value = "price", required = false, defaultValue = "") String price) {
+  public List<MovieWithPicturePath> getAllMoviesSortedByRating(@RequestParam Optional<String> rating,
+                                                               @RequestParam Optional<String> price) {
     if (rating.isEmpty() && price.isEmpty()) {
       return ConvertorDto.movieDto(movieService.findAll());
-    } else if (rating.isEmpty()) {
-      return ConvertorDto.movieDto(movieService.sortedMoviesByPrice(price));
     }
-    return ConvertorDto.movieDto(movieService.sortedMoviesByRating(rating));
+    return rating.isPresent() ? ConvertorDto.movieDto(movieService.sortedMoviesByRating(rating.get()))
+                              : ConvertorDto.movieDto(movieService.sortedMoviesByPrice(price.get()));
   }
 
   @GetMapping(value = "/random")
   public List<MovieWithPicturePath> getRandomMovies() {
-    return ConvertorDto
-        .movieDto(movieService.findRandomNumberOfMovies(Constants.RANDOM_NUMBER_OF_MOVIES));
+    return ConvertorDto.movieDto(movieService.findRandomNumberOfMovies(Constants.RANDOM_NUMBER_OF_MOVIES));
   }
 
   @GetMapping(value = "genre/{genreId}")
   public List<MovieWithPicturePath> getMoviesByGenreId(@PathVariable Long genreId,
-                                                       @RequestParam(value = "rating", required = false, defaultValue = "") String rating,
-                                                       @RequestParam(value = "price", required = false, defaultValue = "") String price) {
+                                                       @RequestParam Optional<String> rating,
+                                                       @RequestParam Optional<String> price) {
     Genre currentGenre = genreService.getById(genreId);
     if (rating.isEmpty() && price.isEmpty()) {
       return ConvertorDto.movieDto(currentGenre.getMovies());
-    } else if (rating.isEmpty()) {
-      return ConvertorDto.movieDto(movieService.sortedByGenreId(genreId, new MovieRequest(
-          SortField.PRICE, SortDirection.findDirectionByOrder(price))));
     }
-    return ConvertorDto.movieDto(movieService.sortedByGenreId(genreId, new MovieRequest(
-        SortField.RATING, SortDirection.findDirectionByOrder(price))));
+    return rating.isPresent() ? getSortedMovies(genreId, new MovieRequest(SortField.RATING, SortDirection.findDirectionByOrder(rating.get())))
+                              : getSortedMovies(genreId, new MovieRequest(SortField.PRICE, SortDirection.findDirectionByOrder(price.get())));
+  }
+
+  private List<MovieWithPicturePath> getSortedMovies(Long genreId, MovieRequest movieRequest) {
+    return ConvertorDto.movieDto(movieService.sortedByGenreId(genreId, movieRequest));
   }
 
 }

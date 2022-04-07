@@ -65,7 +65,6 @@ public class MovieController {
                                 : movieService.getMovieById(movieId);
   }
 
-
   private List<MovieWithPicturePath> getSortedMoviesByGenreId(Long genreId, MovieRequest movieRequest) {
     log.info("get sorted movies by genre id = {} by sort field {} with {} sorting", genreId, movieRequest.getSortField().getName(), movieRequest.getSortDirection().getDirectionOrder());
     return ConvertorDto.movieDto(movieService.sortedByGenreId(genreId, movieRequest));

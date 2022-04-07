@@ -14,7 +14,7 @@ public enum SortDirection {
 
   public static SortDirection findDirectionByOrder(String order){
     return Arrays.stream(SortDirection.values())
-                 .filter(sd -> sd.getDirectionOrder().equals(order.toLowerCase()))
+                 .filter(sd -> sd.getDirectionOrder().equalsIgnoreCase(order))
                  .findFirst()
                  .orElseThrow(() -> new RuntimeException("There is no such direction with value: " + order));
   }

@@ -29,7 +29,7 @@ public final class Genre implements Serializable {
   private Long id;
   private String name;
 
-  @ManyToMany
+  @ManyToMany(mappedBy = "genres")
   @JsonIgnore
   private Set<Movie> movies;
 }

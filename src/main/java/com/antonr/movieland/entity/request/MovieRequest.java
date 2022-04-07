@@ -7,6 +7,6 @@ import lombok.Getter;
 @Getter
 public class MovieRequest {
 
-  SortField sortField;
-  SortDirection sortDirection;
+  private final SortField sortField;
+  private final SortDirection sortDirection;
 }

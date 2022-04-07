@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/v1/country")
 public class CountryController {
 
-  CountryService countryService;
+  private final CountryService countryService;
 
   @GetMapping
-  public List<Country> getAllCountries(){
+  public List<Country> getAllCountries() {
     return countryService.findAll();
   }
 

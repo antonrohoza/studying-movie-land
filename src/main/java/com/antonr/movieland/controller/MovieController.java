@@ -39,7 +39,7 @@ public class MovieController {
 
   @GetMapping(value = "/random")
   public List<MovieWithPicturePath> getRandomMovies() {
-    return ConvertorDto.movieDto(movieService.findRandomNumberOfMovies(Constants.RANDOM_NUMBER_OF_MOVIES));
+    return ConvertorDto.movieDto(movieService.getRandomNumberOfMovies(Constants.RANDOM_NUMBER_OF_MOVIES));
   }
 
   @GetMapping(value = "genre/{genreId}")

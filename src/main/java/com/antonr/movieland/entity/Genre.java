@@ -1,5 +1,6 @@
 package com.antonr.movieland.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
 import javax.persistence.Entity;
@@ -12,20 +13,23 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Immutable;
 
 @Entity
+@Immutable
 @Table
-@Data
 @Builder
-@AllArgsConstructor
+@Data
 @NoArgsConstructor
-public class Genre implements Serializable {
+@AllArgsConstructor
+public final class Genre implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
 
-  @ManyToMany(mappedBy = "genres")
+  @ManyToMany
+  @JsonIgnore
   private Set<Movie> movies;
 }

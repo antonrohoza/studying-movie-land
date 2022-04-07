@@ -24,5 +24,4 @@ public class ConvertorDto {
                         .collect(Collectors.toList());
   }
 
-
 }

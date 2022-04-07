@@ -35,4 +35,8 @@ public class MovieService {
   public List<Movie> findRandomNumberOfMovies(int randomNumberOfMovies) {
     return jpaMovieRepository.findRandomNumberOfMovies(randomNumberOfMovies);
   }
+
+  public Movie getMovieById(Long movieId) {
+    return jpaMovieRepository.getById(movieId);
+  }
 }

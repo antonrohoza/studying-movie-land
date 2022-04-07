@@ -1,6 +1,7 @@
 package com.antonr.movieland.controller;
 
 import com.antonr.movieland.entity.Genre;
+import com.antonr.movieland.entity.Movie;
 import com.antonr.movieland.entity.dto.ConvertorDto;
 import com.antonr.movieland.entity.dto.MovieWithPicturePath;
 import com.antonr.movieland.entity.request.MovieRequest;
@@ -49,12 +50,19 @@ public class MovieController {
     if (rating.isEmpty() && price.isEmpty()) {
       return ConvertorDto.movieDto(currentGenre.getMovies());
     }
-    return rating.isPresent() ? getSortedMovies(genreId, new MovieRequest(SortField.RATING, SortDirection.findDirectionByOrder(rating.get())))
-                              : getSortedMovies(genreId, new MovieRequest(SortField.PRICE, SortDirection.findDirectionByOrder(price.get())));
+    return rating.isPresent() ? getSortedMoviesByGenreId(genreId, new MovieRequest(SortField.RATING, SortDirection.findDirectionByOrder(rating.get())))
+                              : getSortedMoviesByGenreId(genreId, new MovieRequest(SortField.PRICE, SortDirection.findDirectionByOrder(price.get())));
   }
 
-  private List<MovieWithPicturePath> getSortedMovies(Long genreId, MovieRequest movieRequest) {
+  @GetMapping("{movieId}")
+  public Movie getMovieById(@PathVariable Long movieId){
+    return movieService.getMovieById(movieId);
+  }
+
+
+  private List<MovieWithPicturePath> getSortedMoviesByGenreId(Long genreId, MovieRequest movieRequest) {
     return ConvertorDto.movieDto(movieService.sortedByGenreId(genreId, movieRequest));
   }
+
 
 }

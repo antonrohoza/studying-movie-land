@@ -1,7 +1,8 @@
 package com.antonr.movieland.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
-import java.util.Set;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -27,5 +28,6 @@ public class Country implements Serializable {
   private String name;
 
   @ManyToMany(mappedBy = "countries")
-  private Set<Movie> movies;
+  @JsonIgnore
+  private List<Movie> movies;
 }

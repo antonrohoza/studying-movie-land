@@ -1,5 +1,6 @@
 package com.antonr.movieland.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
@@ -41,6 +42,7 @@ public class Movie implements Serializable {
              joinColumns = {@JoinColumn(name = "movie_id")},
              inverseJoinColumns = {@JoinColumn(name = "genre_id")})
   private Set<Genre> genres;
+
   @ManyToMany
   @JoinTable(name = "movie_country",
              joinColumns = {@JoinColumn(name = "movie_id")},
@@ -48,6 +50,7 @@ public class Movie implements Serializable {
   private Set<Country> countries;
 
   @OneToMany(mappedBy = "movie")
+  @JsonIgnore
   private List<Review> reviews;
 
 }

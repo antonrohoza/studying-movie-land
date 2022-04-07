@@ -55,8 +55,10 @@ public class MovieController {
   }
 
   @GetMapping("{movieId}")
-  public Movie getMovieById(@PathVariable Long movieId){
-    return movieService.getMovieById(movieId);
+  public Movie getMovieById(@PathVariable Long movieId,
+                            @RequestParam Optional<String> currency){
+    return currency.isPresent() ? movieService.getMovieByIdWithCurrency(movieId, currency.get())
+                                : movieService.getMovieById(movieId);
   }
 
 

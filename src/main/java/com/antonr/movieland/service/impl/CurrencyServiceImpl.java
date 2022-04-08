@@ -8,12 +8,15 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class CurrencyServiceImpl implements CurrencyService {
-  private final ObjectMapper objectMapper = new ObjectMapper();
+
+  private final ObjectMapper objectMapper;
 
   @SneakyThrows
   public double getCurrencyRate(String currencyCode) {
